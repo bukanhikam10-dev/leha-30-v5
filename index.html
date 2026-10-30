@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#151b38" />
+    <meta name="description" content="Prototipe game petualangan hidden-object personal untuk Leha." />
+    <title>Untuk Leha — Prototipe Game</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="opening-scene.js" defer></script>
+    <script src="music-director.js" defer></script>
+    <script src="scene-art.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#home" aria-label="Untuk Leha, kembali ke awal">
+          <span class="brand-star" aria-hidden="true">✦</span>
+          <span><strong>Untuk Leha</strong><small>sebuah game kenangan</small></span>
+        </a>
+        <div class="top-meta"><span class="status-dot"></span> PROTOTIPE AWAL <span class="meta-separator">·</span> WEB</div>
+        <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="false" title="Musik latar: putar atau jeda">
+          <span aria-hidden="true">♫</span><span>Suara</span>
+        </button>
+      </header>
+
+      <main id="main-content">
+        <section class="screen active" id="home-screen" aria-labelledby="home-title">
+          <div class="home-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span> SEBUAH HADIAH PERSONAL</p>
+            <h1 id="home-title">Untuk <em>Leha.</em></h1>
+            <p class="intro-copy">Ada tempat yang ingin dikunjungi, benda yang bisa ditemukan, dan cerita yang menunggu untuk dibuka.</p>
+            <p class="draft-note">Prototipe cerita · naskah dan ilustrasi masih dalam tahap awal</p>
+            <button class="primary-button" id="start-button" type="button">Mulai perjalanan <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="cover-art" aria-label="Ilustrasi pixel art animasi: Leha berhijab dan berseragam berdiri di kamar malam hari, dikelilingi kotak hadiah dan bintang kecil bernama Poniman">
+            <canvas id="opening-canvas" class="opening-canvas" role="img" aria-label="Animasi pixel art kamar malam dengan Leha, hadiah, dan bintang"></canvas>
+            <div class="cover-caption">Satu perjalanan,<br />banyak kenangan.</div>
+          </div>
+          <div class="home-footer"><span>01 / PERJALANAN</span><span>KENANGAN · PERSAHABATAN · CITA-CITA</span></div>
+        </section>
+
+        <section class="screen journey-loading" id="loading-screen" aria-labelledby="loading-title" hidden>
+          <div class="loading-heading"><p class="eyebrow"><span class="eyebrow-line"></span> MEMUAT PETUALANGAN</p><h1 id="loading-title">Menyiapkan <em>kenangan.</em></h1><p>Karakter utama dan perjalanan Leha sedang disiapkan.</p></div>
+          <div class="loading-stage">
+            <figure class="loading-character loading-leha"><div class="loading-figure-frame"><img src="assets/characters/leha-idle.svg" alt="Leha dengan hijab terang dan seragam biru" /></div><figcaption><strong>Leha</strong><span>Tokoh utama · berani melangkah</span></figcaption></figure>
+            <div class="loading-emblem" aria-hidden="true"><span>✦</span><small>UNTUK<br />LEHA</small></div>
+            <figure class="loading-character loading-hikam"><div class="loading-figure-frame"><div class="loading-hikam-sprite" role="img" aria-label="Hikam dengan stik drum"></div><span class="drum-mark">DRUMMER</span></div><figcaption><strong>Hikam</strong><span>Tokoh cerita · drummer</span></figcaption></figure>
+            <div class="loading-orbit orbit-one">✧</div><div class="loading-orbit orbit-two">✦</div>
+          </div>
+          <div class="loading-bottom"><div class="loading-meter"><div class="loading-meter-copy"><span id="loading-status">MENYIAPKAN PERJALANAN</span><span id="loading-percent">0%</span></div><div class="loading-track"><span id="loading-bar"></span></div></div><button class="primary-button" id="loading-continue" type="button" disabled>Lanjut pilih karakter <span aria-hidden="true">→</span></button></div>
+          <button class="text-button loading-back" id="loading-back" type="button">← Kembali</button>
+        </section>
+
+        <section class="screen character-select-screen" id="character-select-screen" aria-labelledby="character-select-title" hidden>
+          <div class="select-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> PEMILIHAN KARAKTER · EASTER EGG</p><h1 id="character-select-title">Pilih karakter.</h1><p>Yang bisa dimainkan cuma satu. Dua lainnya masih ada urusan.</p></div><button class="text-button" id="select-back" type="button">← Kembali ke loading</button></div>
+          <div class="select-grid">
+            <button class="select-card selected" id="choose-leha" type="button" aria-pressed="true">
+              <span class="select-lock available">BISA DIPILIH</span><span class="select-avatar"><img src="assets/characters/leha-idle.svg" alt="" /></span><span class="select-name">Leha</span>
+              <span class="stat-group"><strong>Kelebihan</strong><span>Visioner</span><span>Smart</span><span>Analytical Thinking</span><span>Political Diplomacy</span></span>
+              <span class="stat-group weakness"><strong>Kekurangan</strong><span>Gengsi</span></span>
+            </button>
+            <div class="select-card locked" aria-disabled="true">
+              <span class="select-lock">TERKUNCI</span><span class="select-avatar"><img src="assets/characters/hikam-idle.svg" alt="" /><i>🔒</i></span><span class="select-name">Hikam</span>
+              <span class="stat-group"><strong>Kelebihan</strong><span>Handsome and Lucky</span></span><span class="stat-group weakness"><strong>Kekurangan</strong><span>Banyak banget gamuat.</span></span>
+            </div>
+            <div class="select-card locked" aria-disabled="true">
+              <span class="select-lock">TERKUNCI</span><span class="select-avatar jupe-avatar"><b>?</b><i>🔒</i></span><span class="select-name">Mbak Jupe</span>
+              <span class="stat-group"><strong>Kelebihan</strong><span>Berteman dengan Leha</span></span><span class="stat-group weakness"><strong>Kekurangan</strong><span>gatau.</span></span>
+            </div>
+          </div>
+          <div class="select-footer"><span id="selected-character-note">Karakter dipilih: Leha</span><button class="primary-button" id="character-continue" type="button">Lanjut sebagai Leha <span aria-hidden="true">→</span></button></div>
+        </section>
+
+        <section class="screen" id="map-screen" aria-labelledby="map-title" hidden>
+          <div class="section-heading">
+            <div><p class="eyebrow"><span class="eyebrow-line"></span> PETA PERJALANAN</p><h1 id="map-title">Bab demi bab.</h1></div>
+            <div class="map-progress"><span class="progress-label">PROGRES CERITA</span><strong id="map-progress-count">0 / 11</strong><div class="progress-track"><span id="map-progress-bar"></span></div></div>
+          </div>
+          <div class="map-layout">
+            <div class="chapter-list" id="chapter-list" aria-label="Daftar bab"></div>
+            <aside class="chapter-detail" id="chapter-detail" aria-live="polite"></aside>
+          </div>
+          <div class="map-footer"><span>Selesaikan bab berurutan untuk membuka kelanjutannya.</span><button class="text-button" id="map-home-button" type="button">← Kembali ke awal</button></div>
+          <div class="roster-link"><span>Tokoh utama dan lingkaran pertemanan</span><button class="text-button" id="character-gallery-button" type="button">Lihat roster karakter →</button></div>
+        </section>
+
+        <section class="screen" id="characters-screen" aria-labelledby="characters-title" hidden>
+          <div class="section-heading roster-heading">
+            <div><p class="eyebrow"><span class="eyebrow-line"></span> ROSTER KARAKTER · DRAFT</p><h1 id="characters-title">Orang-orang di cerita.</h1></div>
+            <button class="text-button" id="characters-back-button" type="button">← Kembali ke peta</button>
+          </div>
+          <p class="roster-disclaimer">Sprite pixel art buatan manual sebagai alternatif tanpa API key. Desain teman yang belum memiliki referensi khusus masih bersifat sementara.</p>
+          <div class="character-gallery" id="character-gallery"></div>
+          <div class="roster-footer"><span>SPRITE STRIP: 4 POSE PER TOKOH</span><a href="assets/characters/roster-spritesheet.svg" target="_blank" rel="noopener">Buka sprite sheet gabungan ↗</a></div>
+        </section>
+
+        <section class="screen game-screen" id="game-screen" aria-labelledby="scene-title" hidden>
+          <section class="narration-view" id="narration-view" aria-labelledby="narration-heading" hidden>
+            <div class="narration-card">
+              <p class="eyebrow"><span class="eyebrow-line"></span><span id="narration-kicker">SEBELUM MULAI</span></p>
+              <div class="narration-content">
+                <div class="narrator-portrait"><img id="narrator-image" src="assets/characters/poniman-idle.svg" alt="Potret narator Poniman" /><span id="narrator-badge">PONIMAN</span></div>
+                <div class="narration-copy"><p class="speaker-label" id="narrator-name">NARATOR / PONIMAN</p><h2 id="narration-heading">Sebuah cerita menunggu.</h2><p id="narration-text"></p></div>
+              </div>
+              <button class="primary-button narration-continue" id="narration-continue" type="button">Mulai bermain <span aria-hidden="true">→</span></button>
+            </div>
+          </section>
+          <div class="play-view" id="play-view" hidden>
+          <div class="game-heading">
+            <button class="back-button" id="back-to-map" type="button" aria-label="Kembali ke peta">←</button>
+            <div><p class="eyebrow" id="game-eyebrow"><span class="eyebrow-line"></span> PROLOG · DRAFT ADEGAN</p><h1 id="scene-title">Sebuah hadiah untuk Leha</h1></div>
+            <div class="scene-counter"><span>BENDA DITEMUKAN</span><strong id="found-count">0 / 4</strong></div>
+          </div>
+          <div class="game-layout">
+            <div class="scene-panel">
+              <div class="scene-label"><span class="tiny-spark">✦</span> <span id="scene-location">RUANG HADIAH</span> <span class="scene-label-right">GERAK: A/D · AMBIL: ENTER</span></div>
+              <div class="scene" id="scene" aria-label="Adegan meja komputer bergaya pixel art">
+                <div class="player-sprite" id="player" role="img" aria-label="Leha, karakter yang bisa digerakkan"></div>
+                <div class="movement-controls" aria-label="Kontrol gerak Leha">
+                  <button type="button" data-move="left" aria-label="Gerak ke kiri">◀</button>
+                  <button type="button" data-move="right" aria-label="Gerak ke kanan">▶</button>
+                  <button type="button" class="take-nearby" id="take-nearby" aria-label="Ambil benda di dekat Leha">AMBIL</button>
+                </div>
+                <div class="wall-window"><span class="moon">✦</span><span class="window-sill"></span></div>
+                <div class="shelf"><span></span><span></span><span></span></div>
+                <div class="monitor"><div class="monitor-screen"><i></i><i></i><i></i><b>GAME<br />FOR YOU</b></div><div class="monitor-neck"></div><div class="monitor-foot"></div></div>
+                <div class="desk-lamp"><i></i><b></b><span></span></div>
+                <div class="desk-surface"></div>
+                <button class="hotspot object-gift" data-item="hadiah" aria-label="Cari kotak hadiah"><span class="gift-mini"><i></i><b></b></span></button>
+                <button class="hotspot object-star" data-item="bintang" aria-label="Cari bintang kecil">✦</button>
+                <button class="hotspot object-book" data-item="buku" aria-label="Cari buku catatan"><span class="book-mini"><i></i></span></button>
+                <button class="hotspot object-mug" data-item="cangkir" aria-label="Cari cangkir"><span class="mug-mini"><i></i></span></button>
+                <div class="desk-leg left-leg"></div><div class="desk-leg right-leg"></div>
+                <div class="scene-vignette"></div>
+              </div>
+              <div class="friend-dialog" id="friend-dialog" hidden aria-live="polite">
+                <img id="friend-dialogue-portrait" src="assets/characters/ayu-idle.svg" alt="Potret teman" />
+                <div class="friend-dialog-copy"><strong id="friend-dialogue-name">Ayu</strong><small id="friend-dialogue-role">OBROLAN</small><p id="friend-dialogue-text"></p></div>
+                <button class="dialog-next" id="friend-dialogue-next" type="button">Lanjut →</button>
+              </div>
+              <div class="activity-panel" id="activity-panel" hidden aria-live="polite"><strong id="activity-title"></strong><p id="activity-text"></p><div id="activity-actions"></div></div>
+              <div class="scene-hint"><span aria-hidden="true">✧</span><span id="scene-message">Gerakkan Leha ke kiri/kanan, dekati benda, lalu tekan Enter.</span><button id="stage-next" class="stage-next-button" type="button" hidden>Lanjut →</button><button id="hint-button" class="hint-button" type="button">Petunjuk <kbd>H</kbd></button></div>
+            </div>
+            <aside class="find-panel">
+              <div class="find-heading"><p class="eyebrow">DAFTAR BENDA</p><h2>Yang dicari</h2><p>Ketuk benda di meja untuk menemukannya.</p></div>
+              <ul class="object-list" id="object-list"></ul>
+              <div class="find-tip"><span class="tip-icon">✦</span><span>Perhatikan bentuk dan warna di dalam ruangan.</span></div>
+            </aside>
+          </div>
+          <div class="game-footer"><span>VERSI PROTOTIPE · LOKASI DAN NASKAH DAPAT DIUBAH</span><button class="text-button" id="game-map-button" type="button">Buka peta bab</button></div>
+          </div>
+        </section>
+      </main>
+      <footer class="site-footer"><span>KENANGAN YANG DIBUAT KHUSUS.</span><span>VERSI AWAL · BELUM FINAL</span></footer>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
